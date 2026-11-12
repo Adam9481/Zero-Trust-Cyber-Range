@@ -1,2 +1,2 @@
 # Zero-Trust-Cyber-Range
-My self-hosted cyber range
+A virtualized Zero-Trust cyber range built to develop practical systems engineering and incident response capabilities.
