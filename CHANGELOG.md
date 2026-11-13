@@ -3,6 +3,8 @@
 ### Added
 - DFIR-IRIS
 <details>
+<summary>Click to expand</summary>
+
 # 1. Clone stable v2 release
 git clone https://github.com/dfir-iris/iris-web.git
 cd iris-web
@@ -26,7 +28,7 @@ chmod 600 certificates/web_certificates/iris_dev_key.pem
 # 4. Build and Deploy
 docker compose build
 docker compose up -d
-<details>
+</details>   
 
 ### Changed
 - 
