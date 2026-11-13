@@ -4,7 +4,7 @@
 ### Added
 - **DFIR-IRIS:** Deployed the incident response platform on Ubuntu LXC (10.0.20.40).
 
- - <details>
+<details>
 <summary><strong>View Deployment Commands</strong></summary>
 
 ```bash
