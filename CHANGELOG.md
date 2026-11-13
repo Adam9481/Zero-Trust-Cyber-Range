@@ -37,8 +37,12 @@ docker compose up -d
 
 ### Changed
 - **VLAN Routing:** Resolved a silent packet drop issue by adding the missing Management VLAN tag on the Proxmox LXC network bridge.
-
+- **Access Control:** Configured host-level firewall rules on the DFIR-IRIS LXC to restrict inbound web interface (HTTPS/443) and SSH traffic exclusively to the Blue Team VM IP address.
+  
 ### Security Decisions
+- **Production Secrets:** Opted against default testing credentials. Generated cryptographic salts via OpenSSL and unique database passwords stored exclusively in a self-hosted Bitwarden vault.
+- **Local Authentication:** Configured IRIS for local DB auth to maintain independence from external identity providers during range operations.
+- **Bastion Host Isolation:** Mandated that DFIR-IRIS is only accessible via the Blue Team VM acting as a secure jump box. This enforces a strict administrative chokepoint, prevents direct access from the broader network, and accurately mirrors enterprise zero-trust architecture.
 - **Production Secrets:** Opted against default testing credentials. Generated cryptographic salts via OpenSSL and unique database passwords stored exclusively in a self-hosted Bitwarden vault.
 - **Local Authentication:** Configured IRIS for local DB auth to maintain independence from external identity providers during range operations.
 
