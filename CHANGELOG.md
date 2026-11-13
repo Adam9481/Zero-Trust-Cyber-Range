@@ -1,3 +1,39 @@
+## [2026-11-13] - DFIR-IRIS Implementation
+
+### Added
+- DFIR-IRIS
+<details>
+# 1. Clone stable v2 release
+git clone https://github.com/dfir-iris/iris-web.git
+cd iris-web
+git checkout v2.4.24
+
+# 2. Configure production secrets
+cp .env.model .env
+nano .env
+# Added Bitwarden-generated DB passwords and OpenSSL-generated salts.
+# Set IRIS_HOSTNAME=10.0.20.40
+
+# 3. Generate TLS Certificates for Management IP
+mkdir -p certificates/web_certificates
+openssl req -x509 -newkey rsa:2048 -sha256 -days 365 -nodes \
+    -keyout certificates/web_certificates/iris_dev_key.pem \
+    -out certificates/web_certificates/iris_dev_cert.pem \
+    -subj "/CN=10.0.20.40" \
+    -addext "subjectAltName=IP:10.0.20.40"
+chmod 600 certificates/web_certificates/iris_dev_key.pem
+
+# 4. Build and Deploy
+docker compose build
+docker compose up -d
+<details>
+
+### Changed
+- 
+
+### Security Decisions
+- 
+  
 ## [2026-11-12] - Host-Level Micro-Segmentation & Baseline established
 
 ### Added
