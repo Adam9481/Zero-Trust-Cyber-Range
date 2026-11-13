@@ -9,7 +9,7 @@
 
 ```bash
 # 1. Clone stable v2 release
-git clone [https://github.com/dfir-iris/iris-web.git](https://github.com/dfir-iris/iris-web.git)
+git clone https://github.com/dfir-iris/iris-web.git
 cd iris-web
 git checkout v2.4.24
 
@@ -43,8 +43,6 @@ docker compose up -d
 - **Production Secrets:** Opted against default testing credentials. Generated cryptographic salts via OpenSSL and unique database passwords stored exclusively in a self-hosted Bitwarden vault.
 - **Local Authentication:** Configured IRIS for local DB auth to maintain independence from external identity providers during range operations.
 - **Bastion Host Isolation:** Mandated that DFIR-IRIS is only accessible via the Blue Team VM acting as a secure jump box. This enforces a strict administrative chokepoint, prevents direct access from the broader network, and accurately mirrors enterprise zero-trust architecture.
-- **Production Secrets:** Opted against default testing credentials. Generated cryptographic salts via OpenSSL and unique database passwords stored exclusively in a self-hosted Bitwarden vault.
-- **Local Authentication:** Configured IRIS for local DB auth to maintain independence from external identity providers during range operations.
 
 </details>
 
