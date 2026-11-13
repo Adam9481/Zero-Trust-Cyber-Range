@@ -6,6 +6,8 @@
   - `Wazuh LXC`: Restricted inbound traffic strictly to ports `1514`, `1515`, and `55000`.
   - `Splunk LXC`: Restricted inbound traffic strictly to ports `8000` and `9997`.
 - **Baseline Architecture Documentation:** Initialized `README.md` defining the macro/micro-segmentation strategy and VLAN rules.
+- **Docker Engine Install on DFIR-IRIS LXC:**
+ - Preparing to implement SOC ticketing system with DFIR-IRIS
 
 ### Changed
 - Verified OPNsense perimeter rules: Detonation network explicitly blocks all RFC 1918 traffic prior to temporary internet access rules to prevent malware lateral movement.
