@@ -1,4 +1,42 @@
 <details>
+<summary><strong>[2026-11-24] - DISA STIG Baseline & OpenSCAP Integration</strong></summary>
+
+### Added
+- **Ubuntu 24.04 LTS Victim VM:** Provisioned a headless Ubuntu 24.04.2 Server VM on VLAN 11 with OpenSSH and `openscap-scanner` installed.
+- **Baseline DISA STIG Audit:** Executed an initial remote compliance scan from the Blue Team VM (Kali Purple) using `oscap-ssh` against the `xccdf_org.ssgproject.content_profile_stig` profile, generating `ubuntu2404-arf.xml` and `ubuntu2404-stig-report.html` for triage.
+- **Clean Baseline Snapshot:** Captured Proxmox snapshot `clean-2404-openscap` immediately after locking down the firewall to enable safe rollbacks during upcoming STIG remediation exercises.
+
+<details>
+<summary><strong>View Scanning & Setup Commands</strong></summary>
+
+```bash
+# 1. Install scanner engine on Ubuntu 24.04 Victim VM (during temporary OPNsense maintenance window)
+sudo apt update && sudo apt install -y openscap-scanner
+
+# 2. Verify STIG profile availability on Blue Team VM (Kali Purple)
+mkdir -p ~/scans/openscap && cd ~/scans/openscap
+oscap info /usr/share/xml/scap/ssg/content/ssg-ubuntu2404-ds.xml | grep -i stig
+
+# 3. Execute remote DISA STIG audit over SSH
+oscap-ssh --sudo adam@<ubuntu_ip> 22 xccdf eval \
+  --profile xccdf_org.ssgproject.content_profile_stig \
+  --results-arf ubuntu2404-arf.xml \
+  --report ubuntu2404-stig-report.html \
+  /usr/share/xml/scap/ssg/content/ssg-ubuntu2404-ds.xml
+```
+
+</details>
+
+### Changed
+- **Target OS Pivot (26.04 to 24.04 LTS):** Replaced the initial Ubuntu 26.04 victim VM with Ubuntu 24.04 LTS after verifying that Kali's `ssg-ubuntu2604-ds.xml` datastream was an early 118 KB stub lacking a complete DISA STIG benchmark.
+
+### Security Decisions
+- **Temporary Provisioning Window:** Briefly disabled the OPNsense outbound block rule on VLAN 11 to pull `openscap-scanner` onto a clean, uncompromised VM, then immediately restored air-gapped isolation and snapshotted the baseline. This avoids manual offline dependency resolution while ensuring the VM never touches the internet once testing begins.
+- **Offline Remote Scanning:** Executed `oscap-ssh` from the Blue Team VM without `--fetch-remote-resources` so compliance auditing operates reliably across an air-gapped VLAN.
+
+</details>
+
+<details>
 <summary><strong>[2026-11-13] - DFIR-IRIS Implementation</strong></summary>
 
 ### Added
